@@ -279,6 +279,13 @@ if (ADMIN_AREA)
 
 
 			$css .= "  
+                    table.fborder {
+                      background: transparent; 
+                    }
+                    
+                    td.forumheader {
+                        background-image: none; 
+                    }
 					.e-container td, .e-container td i {
 						color: white;
 						text-shadow: none;
