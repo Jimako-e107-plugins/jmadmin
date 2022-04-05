@@ -34,11 +34,18 @@ class jmadmin_adminArea extends e_admin_dispatcher
 			'path' 			=> null,
 			'ui' 			=> 'adminlook_form_ui',
 			'uipath' 		=> null
+		),	
+		'prefs'	=> array(
+			'controller' 	=> 'dashboard_ui',
+			'path' 			=> null,
+			'ui' 			=> 'adminlook_form_ui',
+			'uipath' 		=> null
 		),		
 	);	
 
 	protected $adminMenu = array( 
-		'main/prefs' 		=> array('caption'=> 	LAN_JM_ADMIN_LAN_03,    'perm' => 'P', 'url'=>'admin_config.php')
+		'main/prefs' 		=> array('caption'=>  LAN_JM_ADMIN_LAN_03,    'perm' => 'P', 'url'=>'admin_config.php'),
+		'prefs/prefs' 		=> array('caption'=>  LAN_JM_ADMIN_LAN_04,    'perm' => 'P', 'url'=>'admin_config.php')
 	);   
 	
 	protected $adminMenuAliases = array();
@@ -54,15 +61,9 @@ class adminlook_ui extends e_admin_ui
 		protected $fields 		= NULL;				
 		protected $fieldpref = array();
 
-	 	protected $preftabs        = array('General', 'Light Admin', 'Dashboard' );
+	 	protected $preftabs        = array('General', 'Light Admin' );
 		protected $prefs = array (
-			'adminlook_maintitles'		=> 
-				array('title'  => LAN_JM_ADMIN_ADMINLOOK_LAN_09 ,
-				'tab'		   => 0,
-				'type'		   => 'boolean',
-				'data'		   => 'str',
-				'help'		   => LAN_JM_ADMIN_ADMINLOOK_LAN_10
-			), 
+ 
 			'adminlook_removetooltips'		=> 
 				array('title'  => LAN_JM_ADMIN_ADMINLOOK_LAN_01 ,
 				'tab'		   => 0,
@@ -183,27 +184,7 @@ class adminlook_ui extends e_admin_ui
 					'post'     => '<span class="input-group-addon"><i></i></span></div>' ),
 			),  			
 			
-			'dashboard_remove_stats'		=> 
-				array('title'  => LAN_JM_ADMIN_ADMINLOOK_LAN_11 ,
-				'tab'		   => 2,
-				'type'		   => 'boolean',
-				'data'		   => 'str',
-				'help'		   => LAN_JM_ADMIN_ADMINLOOK_LAN_12
-			), 	
-			'dashboard_remove_news'		=> 
-				array('title'  => LAN_JM_ADMIN_ADMINLOOK_LAN_13 ,
-				'tab'		   => 2,
-				'type'		   => 'boolean',
-				'data'		   => 'str',
-				'help'		   => LAN_JM_ADMIN_ADMINLOOK_LAN_14
-			),
-			'remove_e107links' => 
-				array('title'  => LAN_JM_ADMIN_ADMINLOOK_LAN_15 ,
-				'tab'		   => 2,
-				'type'		   => 'boolean',
-				'data'		   => 'str',
-				'help'		   => LAN_JM_ADMIN_ADMINLOOK_LAN_16
-			), 	    
+ 	    
 		); 
 
 	
@@ -265,7 +246,37 @@ class adminlook_ui extends e_admin_ui
     	}
 }
 
-class adminlook_prefs_form_ui extends e_admin_form_ui
+class dashboard_ui extends adminlook_ui
+{
+	protected $preftabs        = array(LAN_JM_ADMIN_LAN_04 );
+
+	protected $prefs = array (  			
+		
+		'dashboard_remove_stats'		=> 
+			array('title'  => LAN_JM_ADMIN_ADMINLOOK_LAN_11 ,
+			'tab'		   => 0,
+			'type'		   => 'boolean',
+			'data'		   => 'str',
+			'help'		   => LAN_JM_ADMIN_ADMINLOOK_LAN_12
+		), 	
+		'dashboard_remove_news'		=> 
+			array('title'  => LAN_JM_ADMIN_ADMINLOOK_LAN_13 ,
+			'tab'		   => 0,
+			'type'		   => 'boolean',
+			'data'		   => 'str',
+			'help'		   => LAN_JM_ADMIN_ADMINLOOK_LAN_14
+		),
+		'remove_e107links' => 
+			array('title'  => LAN_JM_ADMIN_ADMINLOOK_LAN_15 ,
+			'tab'		   => 0,
+			'type'		   => 'boolean',
+			'data'		   => 'str',
+			'help'		   => LAN_JM_ADMIN_ADMINLOOK_LAN_16
+		), 	    
+	); 
+}
+
+	class adminlook_prefs_form_ui extends e_admin_form_ui
 {
    	
 }		

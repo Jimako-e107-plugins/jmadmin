@@ -30,6 +30,8 @@ if (!defined(("LAN_JM_ADMIN_HELP_11"))) { define("LAN_JM_ADMIN_HELP_11", "Downlo
 define("LAN_JM_ADMIN_LAN_01", "JM Admin");
 define("LAN_JM_ADMIN_LAN_02", "JM Admin Plugin");
 define("LAN_JM_ADMIN_LAN_03", "Admin Look");
+define("LAN_JM_ADMIN_LAN_04", "Dashboard Look");
+define("LAN_JM_ADMIN_LAN_05", "Dashboard Elements Visibility");
 
 define("LAN_JM_ADMIN_ADMINLOOK_LAN_01", "Switch from tooltips to small labels" );
 define("LAN_JM_ADMIN_ADMINLOOK_LAN_02", "It displays help tooltip on new line, not as tooltip only on hover. Good for testing your help strings ." );

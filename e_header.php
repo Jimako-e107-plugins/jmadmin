@@ -30,87 +30,20 @@ if (ADMIN_AREA)
 {
 	$settings = e107::pref('jmadmin');
 
-	/* 1 */
-	$adminlook_navheaders = varset($settings['adminlook_maintitles'], true);
-
-	if ($adminlook_navheaders)
-	{
-		$css .= "ul.nav-admin a.navbar-admin-button:after {
-            content: attr(title);
-        }";
-
-		//JS FIX for missing titles in main admin area with bootstrap3 theme   original fix before #4020
-		if (version_compare(e_VERSION, '2.3.0', '<'))
-		{
-			$js = "
-      		$(document).ready(function() {
-          $('ul.nav-admin').find('span.hidden-lg').each(function() {
-        	 $(this).removeClass('hidden-lg');
-        	} );
-      		});
-      	";
-		}
-		e107::js('footer-inline', $js);
-
-		/* fix for non standard size, custom breakpoint was changed for admin theme to 1100px */
-		/* Medium devices Desktops (>1100px)  .col-lg */
-		$css .= "
-        @media all and (min-width: 1101px) and (max-width: 1320px)  {
-                       	.nav-acdmin.navbar-left li a {
-                            padding-left: 10px;
-                            padding-right: 10px;
-                        }
-        }
-        @media all and (min-width: 1101px) and (max-width: 1150px)  {
-                       	.nav-acdmin.navbar-left li a {
-							font-size: 11px;
-                        }
-        }";
-
-		//if KA Admin
-		if (true)
-		{
-			$css .= "
-                @media (min-width: 1200px) {
-                  .col-lg-2 {
-                    width: 20%;
-                  }
-                  .col-lg-10 {
-                    width: 80%;
-                  }
-                }
-
-				@media all and (max-width: 1150px)  {
-				.dropdown-menu {
-					width: 100%;
-				}
-				}
-				@media (max-width: 767px)  {
-					.navbar-nav .open .dropdown-menu {
-						background-color: white;
-					}
-					.navbar-default .navbar-nav .open .dropdown-menu > li > a {
-						padding: 10px 15px 10px 25px;
-					}
-				}
-
-				ul.nav.nav-admin.navbar-nav.navbar-right:first-of-type li>ul>li:nth-child(4) {
-					background: red!important;
-				}
-			";
-		}
-	}
 	/* 2 */
 	$removetooltips = varset($settings['adminlook_removetooltips'], true);
 	if ($removetooltips)
 	{
 		$js2 = "
-		$(document).ready(function() {
+		$(document).ready(function() { 
+			$('td').find('i.admin-ui-help-tip').each(function() {
+				$(this).remove();
+			} );
 			$('td').find('div.field-help').each(function() {
-			$(this).removeClass('field-help').addClass('smalltext') ;
+			$(this).removeClass('field-help').addClass('smalltext').css('display','block') ;
 				} );
 			$('span').find('.field-help').each(function() {
-			$(this).removeClass('field-help').addClass('smalltext') ;
+				$(this).removeClass('field-help').addClass('smalltext').css('display','block') ;
 			} );
 
 		});
