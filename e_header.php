@@ -612,12 +612,49 @@ if (ADMIN_AREA)
         height: 200px;
 	}
 	";
+    
+    $mobile_admin = "
+    
+    @media only screen and (max-width : 768px) {
+ 
+
+      ul.nav-admin > li { 
+          width: 100%;
+          text-align: left; 
+      }
+      .navbar-collapse ul.nav-admin > li > a i {
+           font-size: 100% !important; 
+           text-align: left; 
+      }
+      
+      .navbar-collapse ul.nav-admin > li > a {
+              height: auto;
+              padding-bottom: 0px;
+      }
+      
+      ul.navbar-right { 
+           width: 100%;
+          text-align: left; 
+      }
+      
+      .navbar-collapse ul.nav-admin.navbar-right > li > a {
+                 height: auto;
+              padding-bottom: 0px;  
+      }
+      
+      .navbar-nav .open .dropdown-menu > li {
+            width: 100% !important;
+      }
+     
+
+    }
+    ";
 
 	e107::css('jmadmin', 'css/bootstrap-colorpicker.min.css');
 	e107::js('footer', e_PLUGIN . 'jmadmin/js/bootstrap-colorpicker.min.js', 'jquery');
 	e107::js('footer', e_PLUGIN . 'jmadmin/js/script.js', 'jquery');
 
 	e107::js('footer-inline', $start . $inline_script . $end);
-	e107::css('inline', $css);
+	e107::css('inline', $mobile_admin.$css );
 
 }
