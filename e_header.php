@@ -29,9 +29,9 @@
 if (ADMIN_AREA)
 {
 	$settings = e107::pref('jmadmin');
-
+ 
 	/* 2 */
-	$removetooltips = varset($settings['adminlook_removetooltips'], true);
+	$removetooltips = varset($settings['jm_admin_helptext'], true);
 	if ($removetooltips)
 	{
 		$js2 = "

@@ -22,30 +22,38 @@ if (!getperms('P'))
 	e107::redirect('admin');
 	exit;
 }
-
+e107::coreLan('prefs', true);
 e107::lan('jmadmin',true);
  
 class jmadmin_adminArea extends e_admin_dispatcher
 {
 	protected $modes = array(	
-	
-		'main'	=> array(
+
+		'adminlook'	=> array(
 			'controller' 	=> 'adminlook_ui',
+			'path' 			=> "admin/preferences.php", 
+			'ui' 			=>  'adminlook_prefs_form_ui',
+			'uipath' 		=> "admin/preferences.php", 
+		),
+
+		'main'	=> array(
+			'controller' 	=> 'adminlookx_ui',
 			'path' 			=> null,
-			'ui' 			=> 'adminlook_form_ui',
+			'ui' 			=> null,
 			'uipath' 		=> null
 		),	
 		'prefs'	=> array(
 			'controller' 	=> 'dashboard_ui',
-			'path' 			=> null,
-			'ui' 			=> 'adminlook_form_ui',
+			'path' 			=> "admin/preferences.php",
+			'ui' 			=> null,
 			'uipath' 		=> null
 		),		
 	);	
 
 	protected $adminMenu = array( 
-		'main/prefs' 		=> array('caption'=>  LAN_JM_ADMIN_LAN_03,    'perm' => 'P', 'url'=>'admin_config.php'),
-		'prefs/prefs' 		=> array('caption'=>  LAN_JM_ADMIN_LAN_04,    'perm' => 'P', 'url'=>'admin_config.php')
+		'adminlook/prefs'	=> array('caption'=>  PRFLAN_77,    'perm' => 'P'),
+		'main/prefs' 		=> array('caption'=>  LAN_JM_ADMIN_LAN_03,    'perm' => 'P'),
+		'prefs/prefs' 		=> array('caption'=>  LAN_JM_ADMIN_LAN_04,    'perm' => 'P')
 	);   
 	
 	protected $adminMenuAliases = array();
@@ -53,7 +61,7 @@ class jmadmin_adminArea extends e_admin_dispatcher
 	protected $menuTitle = LAN_JM_ADMIN_LAN_02; 
 }
 				
-class adminlook_ui extends e_admin_ui
+class adminlookx_ui extends e_admin_ui
 {		
 		protected $pluginTitle		= LAN_JM_ADMIN_LAN_01;
 		protected $pluginName		= 'jmadmin';
@@ -61,26 +69,19 @@ class adminlook_ui extends e_admin_ui
 		protected $fields 		= NULL;				
 		protected $fieldpref = array();
 
-	 	protected $preftabs        = array('General', 'Light Admin' );
+	 	protected $preftabs        = array();
 		protected $prefs = array (
- 
-			'adminlook_removetooltips'		=> 
-				array('title'  => LAN_JM_ADMIN_ADMINLOOK_LAN_01 ,
-				'tab'		   => 0,
-				'type'		   => 'boolean',
-				'data'		   => 'str',
-				'help'		   => LAN_JM_ADMIN_ADMINLOOK_LAN_02
-			),
+  
 			'adminlook_kadmin'		=> 
 				array('title'  => LAN_JM_ADMIN_ADMINLOOK_LAN_03 ,
-				'tab'		   => 1,
+				'tab'		   => 0,
 				'type'		   => 'boolean',
 				'data'		   => 'str',
 				'help'		   => LAN_JM_ADMIN_ADMINLOOK_LAN_04,
 			), 	
 			'kadmin_lightmenu_bg'		=> 
 				array('title'  => "Right Light Admin Menu (Light background with Dark text)" ,
-				'tab'		   => 1,
+				'tab'		   => 0,
 				'type'		   => 'text',
 				'data'		   => 'str',
 				'help'		   => 'Recommended #DDD',
@@ -93,7 +94,7 @@ class adminlook_ui extends e_admin_ui
 
 			'kadmin_dark_text'		=> 
 				array('title'  => "Defaul Body Text Color (Dark color on Light Background)" ,
-				'tab'		   => 1,
+				'tab'		   => 0,
 				'type'		   => 'text',
 				'data'		   => 'str',
 				'help'		   => 'Recommended #222 ',
@@ -106,7 +107,7 @@ class adminlook_ui extends e_admin_ui
 	
 			'kadmin_darkmenu_bg'		=> 
 				array('title'  => "Left Dark Admin Menu (Dark background with light text)" ,
-				'tab'		   => 1,
+				'tab'		   => 0,
 				'type'		   => 'text',
 				'data'		   => 'str',
 				'help'		   => 'Recommended #3C3C3C',
@@ -118,7 +119,7 @@ class adminlook_ui extends e_admin_ui
 			), 	
 			'kadmin_light_text'		=> 
 				array('title'  => "Menu Text Color (Light color on Dark Background)" ,
-				'tab'		   => 1,
+				'tab'		   => 0,
 				'type'		   => 'text',
 				'data'		   => 'str',
 				'help'		   => 'Recommended #e5e5e5 ',
@@ -130,7 +131,7 @@ class adminlook_ui extends e_admin_ui
 			), 
 			'kadmin_primary_bg'		=> 
 				array('title'  => LAN_JM_ADMIN_ADMINLOOK_LAN_05 ,
-				'tab'		   => 1,
+				'tab'		   => 0,
 				'type'		   => 'text',
 				'data'		   => 'str',
 				'help'		   => LAN_JM_ADMIN_ADMINLOOK_LAN_07,
@@ -141,7 +142,7 @@ class adminlook_ui extends e_admin_ui
 			),         
 			'kadmin_primary_text'		=> 
 				array('title'  => LAN_JM_ADMIN_ADMINLOOK_LAN_06 ,
-				'tab'		   => 1,
+				'tab'		   => 0,
 				'type'		   => 'text',
 				'data'		   => 'str',
 				'help'		   => LAN_JM_ADMIN_ADMINLOOK_LAN_08,
@@ -246,7 +247,7 @@ class adminlook_ui extends e_admin_ui
     	}
 }
 
-class dashboard_ui extends adminlook_ui
+class dashboard_ui extends adminlookx_ui
 {
 	protected $preftabs        = array(LAN_JM_ADMIN_LAN_04 );
 
@@ -276,11 +277,9 @@ class dashboard_ui extends adminlook_ui
 	); 
 }
 
-	class adminlook_prefs_form_ui extends e_admin_form_ui
-{
-   	
-}		
-		
+ 
+e107::js('jmadmin', 'admin/admin.js', 'jquery');
+
 		
 new jmadmin_adminArea();
 
